@@ -18,7 +18,7 @@ def read_track(filename):
     return track
 
 
-def animate(track, output_filename):
+def animate(track, output_filename, *, width, height):
     bounds = track.get_bounds()
 
     tilemapbase.init(create=True)
@@ -34,7 +34,9 @@ def animate(track, output_filename):
 
     points = track.segments[0].points
 
-    fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, figsize=(5, 5), dpi=100)
+    fig, (ax1, ax2) = plt.subplots(
+        nrows=2, ncols=1, figsize=(width // 100, height // 100), dpi=100
+    )
     camera = Camera(fig)
     ax1.xaxis.set_visible(False)
     ax1.yaxis.set_visible(False)
@@ -79,12 +81,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("gpx_filename", help="File containing the GPX coordinates")
     parser.add_argument("output_filename", help="Filename of the movie output")
+    parser.add_argument("--width", "-x", default=400, type=int, help="Width in pixels")
+    parser.add_argument(
+        "--height", "-y", default=400, type=int, help="Height in pixels"
+    )
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO)
 
     track = read_track(args.gpx_filename)
-    animate(track, args.output_filename)
+    animate(track, args.output_filename, width=args.width, height=args.height)
 
 
 if __name__ == "__main__":
