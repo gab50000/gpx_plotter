@@ -1,0 +1,5 @@
+gpxpy>=1.4.2
+matplotlib>=3.3.3
+tilemapbase>=0.4.6
+celluloid>=0.2.0
+tqdm>=4.55.1
