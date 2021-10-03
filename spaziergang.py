@@ -1,14 +1,13 @@
 import argparse
+import logging
 
 import gpxpy
 import gpxpy.gpx
 import matplotlib.dates
 import matplotlib.pyplot as plt
-from tqdm import tqdm
 import tilemapbase
 from celluloid import Camera
-
-import logging
+from tqdm import tqdm
 
 
 def read_track(filename):
@@ -35,7 +34,7 @@ def animate(track, output_filename):
 
     points = track.segments[0].points
 
-    fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, figsize=(8, 8), dpi=100)
+    fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, figsize=(5, 5), dpi=100)
     camera = Camera(fig)
     ax1.xaxis.set_visible(False)
     ax1.yaxis.set_visible(False)
@@ -59,7 +58,7 @@ def animate(track, output_filename):
         y_coords.append(y)
 
         plotter.plot(ax1, t)
-        ax1.plot(x_coords, y_coords, "b-", linewidth=3)
+        ax1.plot(x_coords, y_coords, "b-", linewidth=2)
         ax1.scatter(x, y, marker="x", color="red", linewidth=3)
 
         time = matplotlib.dates.date2num(point.time)
